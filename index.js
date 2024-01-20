@@ -22,61 +22,81 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
-const todosList = [];
+let todosList = [];
 
 app.use(bodyParser.json());
 
-// add a todo
+// return list of all todos
+app.get('/todos', (req, res) => {
+    res.json(todosList);
+});
+
+// Retrieve a specific todo item by ID
+app.get('/todos/:id', (req, res) => {
+  const targetTodo = findTodoByID(
+    todosList, parseInt(req.params.id)
+  );
+
+  if (!targetTodo) {
+    res.sendStatus(404);
+  } else {
+    res.json(targetTodo);
+  }
+});
+
+// add a new todo
 app.post('/todos', (req, res) => {
-  
-  // creating random id
   const randomID = Math.floor(Math.random() * 100000) + 1;
-  // creating the object
-  const todoObject = {
+  const newTodo = {
     "title": req.body.title,
     "id": randomID,
     "description": req.body.description,
     "isCompleted": req.body.isCompleted
   }
-  todosList.push(todoObject);
-  res.json(todosList);
+
+  todosList.push(newTodo);
+  res.status(201).json(newTodo);
 });
 
-// delete a specific todo
-app.delete('/todos', (req, res) => {
-  // todosList.pop();
-  // res.status(201).json(todosList);
-});
-
-// return list of all todos
-app.get('/todos', (req, res) => {
-  res.status(200).json(todosList);
-});
-
-// retreive only a specific todo
-app.get('/todos/:id', (req, res) => {
-
-  let targetID = parseInt(req.params.id, 10);
-  
-  let targetTodo = findTodoByID(todosList, targetID);
-  
-  if (!targetTodo) {
+// update a specific todo by id 
+app.put('/todos/:id', (req, res) => {
+  const targetID = parseInt(req.params.id);
+  const targetTodoIndex = todosList.findIndex(item => item.id === targetID);
+  if (todoIndex === -1) {
     res.status(404).json({ error: "task not found!" });
   } else {
-    res.status(200).json(targetTodo);
+    todosList[targetTodoIndex].title = req.body.title;
+    todosList[targetTodoIndex].description = req.body.description;
+    todosList[targetTodoIndex].isCompleted = req.body.isCompleted;
+    res.json({msg: "Todo completed!"});
   }
 });
 
-// update a specific todo
-app.put('/todos/:id', (req, res) => {
-
+// delete a specific todo
+app.delete('/todos/:id', (req, res) => {
+  const targetID = parseInt(req.params.id);
+  const targetTodoIndex = todosList.findIndex(item => item.id === targetID);
+  if(todosList.length) {
+    todosList.splice(targetTodoIndex, 1);
+    res.status(200).json({"msg": "Deleted the todo!"});
+  } else {
+    res.status(404).json({error: "No todos found"});
+  }
+  
 });
 
-function findTodoByID(todoListArray, targetID) {
-  const targetObject = todoListArray.find(
+// for all other routes
+app.all('*', (req, res) => {
+  res.sendStatus(404);
+})
+
+function findTodoByID(todosList, targetID) {
+  const targetTodoObject = todosList.find(
     item => item.id === targetID
   );
-  return targetObject;
+  return targetTodoObject;
 }
 
 app.listen(PORT);
+
+module.exports = app;
