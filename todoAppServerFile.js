@@ -12,7 +12,7 @@ const PORT = 3000;
 
 app.use(bodyParser.json());
 
-const filePath = path.join(__dirname, '/todos.json');
+const filePath = path.join(__dirname, '/minidatabase.json');
 
 // return list of all todos ✅
 app.get('/todos', (req, res) => {
