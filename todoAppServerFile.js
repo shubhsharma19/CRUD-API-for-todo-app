@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 const filePath = path.join(__dirname, '/minidatabase.json');
 
-// return list of all todos ✅
+// return list of all todos 
 app.get('/todos', (req, res) => {
     fs.readFile(filePath, 'utf-8', (err, data) => {
         if (err) {
@@ -24,7 +24,7 @@ app.get('/todos', (req, res) => {
     })
 });
 
-// add a new todo ✅
+// add a new todo 
 app.post('/todos', (req, res) => {
     const randomID = Math.floor(Math.random() * 100000) + 1;
     const newTodo = {
@@ -45,7 +45,7 @@ app.post('/todos', (req, res) => {
     })
 });
 
-// Retrieve a specific todo item by ID ✅
+// Retrieve a specific todo item by ID 
 app.get('/todos/:id', (req, res) => {
     fs.readFile(filePath, "utf-8", (err, data) => {
         if (err) {
@@ -63,7 +63,7 @@ app.get('/todos/:id', (req, res) => {
 });
 
 
-// update a specific todo by id ✅
+// update a specific todo by id 
 app.put('/todos/:id', (req, res) => {
     const targetID = parseInt(req.params.id);
     fs.readFile(filePath, "utf-8", (err, data) => {
