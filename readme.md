@@ -19,7 +19,7 @@ The unique feature of this server is its ability to persist data even after the 
   npm install
 ```
 
-# Usage
+## Usage
 
 1. Start the server by running:
 
@@ -51,17 +51,17 @@ The unique feature of this server is its ability to persist data even after the 
 
 3. To stop the server, press `Ctrl + C` in the terminal.
 
-# Persistent Storage
+## Persistent Storage
 
 All todo items are stored in the `minidatabase.json` file on the server's file system. This allows data to persist even if the server is closed and restarted.
 
-# Error Handling
+## Error Handling
 
 - If there are issues reading or writing to the file, the server responds with a status code of 500 (Internal Server Error).
 - If a requested todo item is not found, the server responds with a status code of 404 (Not Found).
 - If there are issues deleting a todo item, the server responds with a status code of 400 (Bad Request) if the todo list is already empty.
 
-# Notes
+## Notes
 
 - The server generates random IDs for new todo items.
 - The `findTodoByID` function is used to locate a todo item in the list by its ID.
