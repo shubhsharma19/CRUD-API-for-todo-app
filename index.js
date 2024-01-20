@@ -50,17 +50,33 @@ app.delete('/todos', (req, res) => {
 
 // return list of all todos
 app.get('/todos', (req, res) => {
-
+  res.status(200).json(todosList);
 });
 
-// return only a specific todo
+// retreive only a specific todo
 app.get('/todos/:id', (req, res) => {
 
+  let targetID = parseInt(req.params.id, 10);
+  
+  let targetTodo = findTodoByID(todosList, targetID);
+  
+  if (!targetTodo) {
+    res.status(404).json({ error: "task not found!" });
+  } else {
+    res.status(200).json(targetTodo);
+  }
 });
 
 // update a specific todo
 app.put('/todos/:id', (req, res) => {
 
 });
+
+function findTodoByID(todoListArray, targetID) {
+  const targetObject = todoListArray.find(
+    item => item.id === targetID
+  );
+  return targetObject;
+}
 
 app.listen(PORT);
