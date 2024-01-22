@@ -61,8 +61,9 @@ app.get('/todos/:id', async (req, res) => {
     try {
         const data = await readData(filePath);
         const todosList = JSON.parse(data);
-        const targetTodo = findTodoByID(todosList, parseInt(req.params.id));
-
+        const { id } = req.params;
+        const targetID = parseInt(id);
+        const targetTodo = findTodoByID(todosList, targetID);
         if (!targetTodo) {
             res.sendStatus(404);
         } else {
@@ -78,7 +79,8 @@ app.put('/todos/:id', async (req, res) => {
     try {
         const data = await readData(filePath);
         let todosList = JSON.parse(data);
-        const targetID = parseInt(req.params.id);
+        const { id } = req.params;
+        const targetID = parseInt(id);
         const targetTodoIndex = todosList.findIndex(item => item.id === targetID);
 
         if (targetTodoIndex === -1) {
@@ -104,7 +106,8 @@ app.delete('/todos/:id', async (req, res) => {
     try {
         const data = await readData(filePath);
         let todosList = JSON.parse(data);
-        const targetID = parseInt(req.params.id);
+        const { id } = req.params;
+        const targetID = parseInt(id);
         const targetTodoIndex = todosList.findIndex(item => item.id === targetID);
 
         if (targetTodoIndex === -1) {
