@@ -22,32 +22,31 @@ The unique feature of this server is its ability to persist data even after the 
 ## Usage
 
 1. Start the server by running:
+ ```bash
+ npm start
+ ```
 
-    ```bash
-    npm start
-    ```
-
-   The server will run on port 3000 by default.
+The server will run on port 3000 by default.
 
 2. Use the following endpoints to interact with the API:
 
-    - **GET /todos**: Retrieve a list of all todo items.
-
-    - **POST /todos**: Add a new todo item.
-        - Request body should include:
-            - `title` (string): Title of the todo.
-            - `description` (string): Description of the todo.
-            - `isCompleted` (boolean): Indicates whether the todo is completed.
-
-    - **GET /todos/:id**: Retrieve a specific todo item by its ID.
-
-    - **PUT /todos/:id**: Update a specific todo item by its ID.
-        - Request body should include:
-            - `title` (string): Updated title of the todo.
-            - `description` (string): Updated description of the todo.
-            - `isCompleted` (boolean): Updated completion status.
-
-    - **DELETE /todos/:id**: Delete a specific todo item by its ID.
+- **GET /todos**: Retrieve a list of all todo items.
+  
+- **POST /todos**: Add a new todo item.
+  - Request body should include:
+    - `title` (string): Title of the todo.
+    - `description` (string): Description of the todo.
+    - `isCompleted` (boolean): Indicates whether the todo is completed.
+      
+- **GET /todos/:id**: Retrieve a specific todo item by its ID.
+  
+- **PUT /todos/:id**: Update a specific todo item by its ID.
+  - Request body should include:
+    - `title` (string): Updated title of the todo.
+    - `description` (string): Updated description of the todo.
+    - `isCompleted` (boolean): Updated completion status.
+      
+- **DELETE /todos/:id**: Delete a specific todo item by its ID.
 
 3. To stop the server, press `Ctrl + C` in the terminal.
 
