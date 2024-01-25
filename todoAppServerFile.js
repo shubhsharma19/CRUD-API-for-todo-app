@@ -131,6 +131,11 @@ app.all('*', (req, res) => {
     res.sendStatus(404);
 });
 
+// global catch 
+app.use((err, req, res, next) => {
+    res.status(500).json({ msg: "Error 500" });
+})
+
 function findTodoByID(todosList, targetID) {
     return todosList.find(item => item.id === targetID);
 }
